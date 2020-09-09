@@ -1,0 +1,1 @@
+export type PromiseValue<A> = A | PromiseLike<A> | undefined
