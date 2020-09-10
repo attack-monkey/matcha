@@ -7,7 +7,7 @@ matcha provides powerful pattern matching - inspired by f# and functional progra
 
 ## Install
 
-`npm i matcha`
+`npm i matcha_match`
 
 ...
 
