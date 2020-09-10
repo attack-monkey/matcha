@@ -36,7 +36,7 @@ const a = {
 
 patternMatch(
   a,
-  with_({ name: { first: 'johnny '} }, a => `matching on first name`)
+  with_({ name: { first: 'johnny '} }, _ => `matching on first name`)
 )
 
 ```
@@ -51,8 +51,6 @@ patternMatch(
 )
 
 ```
-
-The compiler is able to infer the type of the value if a given path fires.
 
 ### Runtime Interfaces
 
