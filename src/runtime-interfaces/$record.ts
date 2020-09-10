@@ -1,4 +1,4 @@
-import { pipe } from "../prelude";
+import { patternMatch } from "..";
 import { match } from "../Maybe/functions/match";
 import { $unknown } from "./$unknown";
 
@@ -7,7 +7,7 @@ export const $record = <A>(type_: A) => ({
   test: (a: any) =>
     typeof a === 'object'
       && Object.keys(a).map(key =>
-        pipe(
+        patternMatch(
           a[key],
           match(type_, _ => true),
           match($unknown, _ => false)

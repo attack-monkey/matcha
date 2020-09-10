@@ -1,5 +1,5 @@
 import { Maybe } from "../types/Maybe"
-import { Done } from "../valueTypes/Done"
+import { Done } from "../types/Done"
 import { AtoB } from "../types/AtoB"
 
 const isPrimitive = <A>(a: A): boolean => typeof a !== 'object'
@@ -51,7 +51,7 @@ const matches = <A>(litOrPartial: A, c: any) => {
   }
 }
 
-export type Match = <A, C>(litOrPatial: A, f: AtoB<A, C>) => (c: Maybe<C>) => Maybe<C>
+type Match = <A, C>(litOrPatial: A, f: AtoB<A, C>) => (c: Maybe<C>) => Maybe<C>
 
 export const match: Match = (litOrPartial, f) => c => {
   return (c as Done)?.done === true || !matches(litOrPartial, c)

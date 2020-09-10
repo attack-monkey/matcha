@@ -1,4 +1,4 @@
-import { pipe } from "../prelude";
+import { patternMatch } from "..";
 import { match } from "../Maybe/functions/match";
 import { $unknown } from "./$unknown";
 
@@ -12,7 +12,7 @@ export const $union: Union = (x: any[]) => ({
   runtimeInterface: true,
   test: (a: any) => 
     x.map(item => 
-      pipe(
+      patternMatch(
         a,
         match(item, _ => true),
         match($unknown, _ => false)

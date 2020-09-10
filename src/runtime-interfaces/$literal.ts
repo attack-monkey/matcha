@@ -1,11 +1,11 @@
-import { pipe } from "../prelude";
+import { patternMatch } from "..";
 import { match } from "../Maybe/functions/match";
 import { $unknown } from "./$unknown";
 
 export const $literal = <A>(x: A) => ({
   runtimeInterface: true,
   test: (a: any) => 
-    pipe(
+    patternMatch(
       a,
       match(x, _ => true),
       match($unknown, _ => false)

@@ -1,1 +1,0 @@
-export const $unknown = { runtimeInterface: true, test: () => true } as unknown

@@ -1,4 +1,4 @@
-import { pipe } from "../prelude";
+import { patternMatch } from "..";
 import { match } from "../Maybe/functions/match";
 import { $unknown } from "./$unknown";
 
@@ -7,7 +7,7 @@ export const $array = <A>(type_: A) => ({
   test: (a: any) =>
     Array.isArray(a)
       && a.map(item =>
-        pipe(
+        patternMatch(
           item,
           match(type_, _ => true),
           match($unknown, _ => false)

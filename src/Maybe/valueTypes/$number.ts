@@ -1,1 +1,0 @@
-export const $number = { runtimeInterface: true, type: 'number' } as unknown as number
