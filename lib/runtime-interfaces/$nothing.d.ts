@@ -1,2 +1,4 @@
-import { Nothing } from "../Maybe/types/Nothing";
-export declare const $nothing: Nothing;
+export declare const $nothing: {
+    runtimeInterface: boolean;
+    test: (a: unknown) => boolean;
+};

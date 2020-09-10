@@ -5,6 +5,17 @@ Pattern Matching for Typescript and Javascript
 
 matcha provides powerful pattern matching - inspired by f# and functional programming.
 
+## Install
+
+`npm i matcha`
+
+...
+
+`import { patternMatch, with_ } from 'matcha'`
+`import { $string } from 'matcha/runtime-interfaces/$string`
+
+## Overview
+
 Pattern matching takes a value and matches it against a series of patterns.
 The first pattern to match, fires the value (with type inferred from the pattern) into an accompanying function.
 
