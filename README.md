@@ -99,7 +99,7 @@ patternMatch(
 
 Special runtime interfaces can be used to match against in place of values...
 
-Here we use `$string` in place of the literal name.
+Here we use `$string` in place of the literal 'johnny'.
 
 
 ```typescript
@@ -117,7 +117,7 @@ patternMatch(
 
 ```
 
-It's also good to point out that a runtime interface automatically binds the correct type to the interface, so `$string` is of type `string`. So when `a` is matched, it gets assigned the type `{ name: { first: string }}`
+It's also good to point out that a runtime interface automatically binds the correct type to the interface, so `$string` is of type `string`. So when `a` is matched, it infers the type `{ name: { first: string }}`
 
 Runtime interfaces are powerful...
 
@@ -231,3 +231,59 @@ Primitive Runtime Interfaces have a `type` property, but more complex ones have 
 In both `$odd` and `$even` the subject is piped into the test function and a boolean is returned which determines whether or not the subject matches.
 
 Note that the Runtime Interface object is coerced into the expected type should the path match.
+
+### Simple, Safe Fetch
+
+```typescript
+
+const $validJson = {
+  userId: $number,
+  id: $number,
+  title: $string,
+  completed: $boolean
+}
+
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json =>
+    patternMatch(
+      json,
+      match($validJson, json => console.log(`yay - ${ json.title }`)),
+      match($unknown, a => console.log(`Unexpected JSON response from API`))
+    )
+  )
+
+```
+
+## Type-cirtainty
+
+Pattern matching becomes more powerful when used to drive type-cirtainty.
+The return value of pattern matching is often a `union` type or just plain `unknown`.
+
+Instead we can drive type-cirtainty by not returning a response to a variable at all.
+Instead we call a function passing in the value of cirtain-type from the inferred match.
+
+In the below `personProgram` only fires if `bob` matches `$person` so if `personProgram` runs at all, then it is with type-cirtainty.
+
+```typescript
+
+const $person = {
+  name: {
+    first: $string
+  }
+}
+
+type Person = typeof $person
+
+const personProgram = (person: Person) => {
+  //this program runs with type cirtainty :D
+  console.log(`${person.name.first} is safe`)
+}
+
+patternMatch(
+  bob,
+  with_($person, personProgram /* this only runs if a match occurs */),
+  with_($nothing, _ => console.log('no match'))
+)
+
+```
