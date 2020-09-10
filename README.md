@@ -5,9 +5,50 @@ Pattern Matching for Typescript and Javascript
 
 matcha provides powerful pattern matching - inspired by f# and functional programming.
 
+Pattern matching takes a value and matches it against a series of patterns.
+The first pattern to match, fires the value (with type inferred from the pattern) into an accompanying function.
+
+So... let's say we have `name`.
+
+We could do something like...
+
+```typescript
+
+patternMatch(
+  name,
+  with_('garfield', matchedName => `${matchedName} is a cat`)
+  with_('odie', matchedName => `${matchedName} is a dog`)
+)
+
+```
+
+In the above `matchedName` in both cases is inferred to be a string - even though `name` may be of unknown type.
+That's because `matchedName` infers it's type from the pattern.
+
+Pattern Matching can be used to return a value.
+The result is the result of the function that fires upon match.
+If there is no match, then the original value is returned instead.
+
+
+```typescript
+
+const name: string = getName()
+
+const a = patternMatch(
+  name,
+  with_('garfield', matchedName => `${matchedName} is a cat`)
+  with_('odie', matchedName => `${matchedName} is a dog`)
+)
+
+```
+
+In the above, since the value and both `with_` arms all return a string - the compiler is smart enough to know that the resulting type is always string. Therefore `a` gets an inferred type of string.
+
+If one of the arms returned a `number` then `a` would have an inferred type of `string | number`.
+
 ### Literal matching
 
-Firstly simple equality matches can be made...
+We've already seen how simple equality matches can be made...
 
 ```typescript
 
@@ -21,9 +62,11 @@ const b = patternMatch(
 
 ```
 
+But Pattern Matching is far more powerful than that...
+
 ### Partial Matching & Destructuring
 
-Secondly partial objects and arrays can be matched against an object / array.
+Objects and arrays can be matched against a partial object / array.
 
 ```typescript
 
@@ -56,14 +99,25 @@ patternMatch(
 
 Special runtime interfaces can be used to match against in place of values...
 
+Here we use `$string` in place of the literal name.
+
+
 ```typescript
+
+const $matchPattern = {
+  name: {
+    first: $string 
+  }
+}
 
 patternMatch(
   a,
-  with_({ name: { first: $string }}, ({ name: { first: b }}) => `${b} is a string`)
+  with_($matchedPattern, ({ name: { first: b }}) => `${b} is a string`)
 )
 
 ```
+
+It's also good to point out that a runtime interface automatically binds the correct type to the interface, so `$string` is of type `string`. So when `a` is matched, it gets assigned the type `{ name: { first: string }}`
 
 Runtime interfaces are powerful...
 
@@ -134,7 +188,7 @@ Runtime interfaces include
 - `$string`
 - `$number`
 - `$boolean`
-- `$array()`
+- `$array([])`
 - `$record()`
 - `$union([])`
 - `$unknown`

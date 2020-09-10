@@ -49,5 +49,16 @@ patternMatch(
   with_($nothing, _ => console.log('no match'))
 )
 
+// When the value to match against - and all arms result in the same type - then the result will be a known type.
+// Eg. in the below - `result` will always be a string
+
+const name = 'garfield'
+
+const result = patternMatch(
+  name,
+  with_('garfield', matchedName => `${matchedName} is a cat`),
+  with_('odie', matchedName => `${matchedName} is a cat`)
+)
+
 
 
