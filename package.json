@@ -1,5 +1,5 @@
 {
-  "name": "matcha",
+  "name": "matcha_match",
   "version": "1.0.0",
   "description": "Pattern matching for Typescript and  Javascript",
   "main": "index.js",
