@@ -12,6 +12,7 @@ matcha provides powerful pattern matching - inspired by f# and functional progra
 ...
 
 `import { patternMatch, with_ } from 'matcha'`
+
 `import { $string } from 'matcha/runtime-interfaces/$string`
 
 ## Overview
@@ -290,6 +291,8 @@ const personProgram = (person: Person) => {
   //this program runs with type cirtainty :D
   console.log(`${person.name.first} is safe`)
 }
+
+const bob = getPerson(123)
 
 patternMatch(
   bob,
