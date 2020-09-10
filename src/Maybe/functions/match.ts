@@ -51,10 +51,10 @@ const matches = <A>(litOrPartial: A, c: any) => {
   }
 }
 
-type Match = <A, C>(litOrPatial: A, f: AtoB<A, any>) => (c: Maybe<C>) => Maybe<C>
+export type Match = <A, C>(litOrPatial: A, f: AtoB<A, C>) => (c: Maybe<C>) => Maybe<C>
 
 export const match: Match = (litOrPartial, f) => c => {
   return (c as Done)?.done === true || !matches(litOrPartial, c)
     ? c
-      : { done: true as true, thunk: () => f(c as any) }
+    : { done: true as true, thunk: () => f(c as any) }
 }

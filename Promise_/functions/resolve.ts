@@ -1,1 +1,0 @@
-export const resolve = <A>(a: A) => Promise.resolve(a)

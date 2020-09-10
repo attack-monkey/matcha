@@ -1,1 +1,0 @@
-export const then = <A, B>(f: (a: A) => B) => (a: PromiseLike<A>) => a.then(x => f(x))
