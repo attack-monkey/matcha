@@ -15,8 +15,8 @@ const a = 'cat' as unknown
 
 const b = patternMatch(
   a,
-  with_('cat', a => `hello kitty`),
-  with_('dog', a => `hello doggy`)
+  with_('cat', _ => `hello kitty`),
+  with_('dog', _ => `hello doggy`)
 )
 
 ```
@@ -109,10 +109,10 @@ const a = 'cat' as unknown
 console.log(
   patternMatch(
     a,
-    with_($lt(100), a => `< 100`),
-    with_($gt(100), a => `> 100`),
-    with_(100, a => `its 100`),
-    with_($unknown, a => `no idea ... probably a cat`) // Use $unknown as a catch all
+    with_($lt(100), _ => `< 100`),
+    with_($gt(100), _ => `> 100`),
+    with_(100, _ => `its 100`),
+    with_($unknown, _ => `no idea ... probably a cat`) // Use $unknown as a catch all
   )
 )
 
@@ -124,7 +124,7 @@ const a = 'cat' as string | number
 
 patternMatch(
   a,
-  with_($union([$string, $number]), a => `a is string | number`)
+  with_($union([$string, $number]), _ => `a is string | number`)
 )
 
 ```
@@ -163,8 +163,8 @@ const $odd =
 console.log(
   patternMatch(
     101,
-    with_($even, a => `number is even`),
-    with_($odd, a => `number is odd`)
+    with_($even, _ => `number is even`),
+    with_($odd, _ => `number is odd`)
   )
 ) // number is odd
 
