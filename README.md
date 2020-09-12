@@ -11,7 +11,7 @@ matcha provides powerful pattern matching - inspired by f# and functional progra
 
 ...
 
-`import { patternMatch, with_ } from 'matcha'`
+`import { patternMatch, with_ } from 'matcha_match'`
 
 `import { $string } from 'matcha/runtime-interfaces/$string`
 
@@ -236,7 +236,7 @@ console.log(
 
 ```
 A Runtime interface is an object with the property `runtimeInterface: true`.
-This tells the `with` function to treat the value as a Runtime Interface.
+This tells the `with_` function to treat the value as a Runtime Interface.
 
 Primitive Runtime Interfaces have a `type` property, but more complex ones have a `test` function that determines whether a match is being made.
 
